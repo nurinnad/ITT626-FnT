@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2018 at 07:23 PM
--- Server version: 10.1.36-MariaDB
--- PHP Version: 7.1.23
+-- Generation Time: Apr 20, 2022 at 05:02 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.4.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `warehouse`
+-- Database: `inventorydb`
 --
 
 -- --------------------------------------------------------
@@ -58,8 +57,7 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `username`, `password`) VALUES
-(2, 'john', '$2b$10$78ua3oOo3z2OBb/RGidoJ.bi/mtrt4.Q0esk3FlLsLpjsXYLJFyKy'),
-(3, 'athulya', '$2a$10$WtfOkNJmJyVKiuVzcJ1Lt.kM8r6YUHpqfISEfFaIniSFEMP/3GBzK');
+(1, 'adones', '$2a$10$gPlX7FlRFIwcB9E.N4MjROEdryV2MnsMfmFzv6ZAgmKI7u254heVW');
 
 -- --------------------------------------------------------
 
@@ -69,24 +67,12 @@ INSERT INTO `customers` (`id`, `username`, `password`) VALUES
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date` timestamp NOT NULL DEFAULT current_timestamp(),
   `pid` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
   `status` varchar(100) NOT NULL DEFAULT 'ordered'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `date`, `pid`, `uid`, `qty`, `status`) VALUES
-(2, '2018-11-20 10:19:46', 1, 2, 4, 'delivered'),
-(3, '2018-11-20 10:26:46', 2, 2, 2, 'delivered'),
-(4, '2018-11-20 12:41:08', 2, 2, 20, 'ordered'),
-(5, '2018-11-20 12:47:07', 2, 2, 12, 'delivered'),
-(6, '2018-11-20 12:52:18', 1, 2, 3, 'ordered'),
-(7, '2018-11-20 13:03:51', 2, 3, 4, 'ordered');
 
 -- --------------------------------------------------------
 
@@ -108,10 +94,12 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `descr`, `price`, `stock`, `picture`) VALUES
-(1, 'All Natural Soap', 'Cleanse, moisturize and soothe your skin with all natural handmade soap made with organic oils and plant butters, pure essential oils, organic herbs, and spices. ', 126, 34, 'afc7eae2c9b20daad05728da662f3c65.jpg'),
-(2, 'Unscented Baby Powder', 'An organic baby powder for delicate skin formulated with finely milled vegetable root powders, skin soothing botanicals and silky clay that work together to absorb moisture.', 520, 46, 'organic_natural_baby_skin_care_products-16.jpg'),
-(4, 'Lip Balm: Healing Herbs', 'An organic lip balm made with soothing oils and botanicals that moisturize and help promote healing.', 560, 45, 'c335c6e65ac8c9327bf5bd023e38a3b1.jpg'),
-(5, 'Deodorant: Coconut Cream', 'An organic cream deodorant made with soothing ingredients that effectively neutralize odor and plant-based powders that help absorb wetness, so you stay fresh naturally.', 122, 23, '40e14cf92b6d21976908d25fa136ccbf.jpg');
+(1, 'All Natural Soap', 'Cleanse, moisturize and soothe your skin with all natural handmade soap made with organic oils and plant butters, pure essential oils, organic herbs, and spices. ', 126, 100, 'afc7eae2c9b20daad05728da662f3c65.jpg'),
+(2, 'Unscented Baby Powder', 'An organic baby powder for delicate skin formulated with finely milled vegetable root powders, skin soothing botanicals and silky clay that work together to absorb moisture.', 520, 100, 'organic_natural_baby_skin_care_products-16.jpg'),
+(4, 'Lip Balm: Healing Herbs', 'An organic lip balm made with soothing oils and botanicals that moisturize and help promote healing.', 560, 100, 'c335c6e65ac8c9327bf5bd023e38a3b1.jpg'),
+(5, 'Deodorant: Coconut Cream', 'An organic cream deodorant made with soothing ingredients that effectively neutralize odor and plant-based powders that help absorb wetness, so you stay fresh naturally.', 122, 100, '40e14cf92b6d21976908d25fa136ccbf.jpg'),
+(6, 'Xanthone Plus Capsule', 'The best medicine for health issues', 250, 100, '6b72346f80fb5478f34ef8558e4be80d.jpg'),
+(7, 'Malunggay Medicine', 'Moringa Oleifera or locally known as Malungay, is widely used as a vegetable ingredient in cooking. It is a popular plant known for high nutritional value as well as an herbal medicine a number of illness and other practical uses.', 350, 100, 'bc0cd8fd7a3bcfa86a8efad5effa452e.jpg');
 
 --
 -- Indexes for dumped tables
@@ -155,19 +143,19 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

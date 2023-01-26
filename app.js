@@ -40,7 +40,7 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : '',
-  database : 'warehouse'
+  database : 'inventorydb'
 })
 
 connection.connect(function(err) {
